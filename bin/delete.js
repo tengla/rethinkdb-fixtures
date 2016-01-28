@@ -1,6 +1,5 @@
 'use strict';
 
-const R = require('rethinkdb');
 const _ = require('lodash');
 Promise = require('bluebird');
 const DB = process.env.RETHINKDB;
@@ -30,7 +29,8 @@ prep.connect()
         return prep.dropTables(diff);
     })
     .then( (promises) => {
-        return Promise.all(promises)
+
+        return Promise.all(promises);
     }, console.error)
     .then( (result) => {
 
@@ -51,5 +51,6 @@ prep.connect()
         prep.close();
     })
     .catch( (err) => {
+
         console.error(err.msg);
     });
