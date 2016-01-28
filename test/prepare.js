@@ -54,10 +54,6 @@ lab.experiment('Prepare', () => {
 
             return prep.createTablesUnlessExist(tables);
         })
-        .then( (promises) => {
-
-            return Promise.all(promises);
-        })
         .then(prep.tableList.bind(prep))
         .then( (list) => {
 
@@ -80,10 +76,6 @@ lab.experiment('Prepare', () => {
         prep.connect()
         .then(() => {}, console.error)
         .then(prep.fill.bind(prep, fixture))
-        .then( (promises) => {
-
-            return Promise.all(promises);
-        })
         .then( (result) => {
 
             expect(result[0].people[0].name).to.be.equal('John Doe');
@@ -103,10 +95,6 @@ lab.experiment('Prepare', () => {
         prep.connect()
         .then(() => {},console.error)
         .then(prep.fill.bind(prep,fixture))
-        .then( (promises) => {
-
-            return Promise.all(promises);
-        })
         .then( () => {})
         .then( () => {
 
@@ -124,10 +112,6 @@ lab.experiment('Prepare', () => {
         .then( () => {}, console.error)
         .then(prep.createTableUnlessExist.bind(prep, 'temptable'))
         .then(prep.dropTables.bind(prep,['temptable']))
-        .then( (promises) => {
-
-            return Promise.all(promises);
-        })
         .then( (result) => {
 
             expect(result[0].config_changes[0].old_val.name).to.be.equal('temptable');
