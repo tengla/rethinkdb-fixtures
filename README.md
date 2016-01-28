@@ -34,7 +34,7 @@ npm test
 ```
 export RETHINKDB=test
 export FIXTURE=./fixtures.json
-node ./bin/runner.js 
+node ./bin/insert.js
 ```
 #### To delete tables
 ```
