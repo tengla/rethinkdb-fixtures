@@ -28,12 +28,16 @@ prep.connect()
 npm test
 ```
 
-### Command line usage:
+### Command line usage
+
+#### To insert:
 ```
 export RETHINKDB=test
 export FIXTURE=./fixtures.json
 node ./bin/runner.js 
-
+```
+#### To delete tables
+```
 export RETHINKDB=test
 export TABLES='table1,table2,table3'
 node ./bin/delete.js
