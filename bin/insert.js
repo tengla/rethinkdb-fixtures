@@ -25,18 +25,10 @@ prep.connect()
 
         return prep.createTablesUnlessExist(Object.keys(fixtures));
     })
-    .then( (promises) => {
-
-        return Promise.all(promises);
-    })
     .then(Readfixture.bind(null, FIXTURE))
     .then( (fixtures) => {
 
         return prep.fill(fixtures);
-    })
-    .then( (promises) => {
-
-        return Promise.all(promises);
     })
     .then( (results) => {
 

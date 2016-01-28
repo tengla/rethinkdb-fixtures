@@ -28,10 +28,6 @@ prep.connect()
         });
         return prep.dropTables(diff);
     })
-    .then( (promises) => {
-
-        return Promise.all(promises);
-    }, console.error)
     .then( (result) => {
 
         const rows = result.map( (row) => {
