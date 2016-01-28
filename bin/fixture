@@ -6,6 +6,7 @@ case "$1" in
     exec node $(pwd)/bin/runner.js
     ;;
   del)
+    # Please change tables to your suiting.
     export RETHINKDB=test TABLES=bikes,groups,people
     exec node $(pwd)/bin/delete.js
     ;;
