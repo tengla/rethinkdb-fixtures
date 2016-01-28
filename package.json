@@ -1,0 +1,29 @@
+{
+  "name": "rethinkdb-prep",
+  "version": "0.0.1",
+  "description": "Easily load fixtures into Rethinkdb. Useful for testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab -v -m 5000",
+    "linter": "lab -L",
+    "coverage": "lab -c -v",
+    "start": "node ./bin/runner.js",
+    "delete": "node ./bin/delete.js"
+  },
+  "keywords": [
+    "Rethinkdb",
+    "testing",
+    "fixtures"
+  ],
+  "author": "Thomas Eng",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.1.5",
+    "lodash": "^4.0.1",
+    "rethinkdb": "^2.2.1"
+  },
+  "devDependencies": {
+    "code": "^2.1.0",
+    "lab": "^8.0.1"
+  }
+}
