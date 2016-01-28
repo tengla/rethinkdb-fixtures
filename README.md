@@ -26,3 +26,8 @@ prep.connect()
     prep.close();
 });
 ```
+
+### To test:
+```
+npm test
+```
