@@ -15,7 +15,7 @@ const fixture = {
 
 prep.connect()
 .then(console.log, console.error)
-.then(prep.fill.bind(prep, fixture)) // returns array of promises
+.then(prep.fill.bind(prep, fixture)) // returns resolved promises
 .then( (result) => {
 
     console.log(result[0].people); // newly created people
