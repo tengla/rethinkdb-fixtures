@@ -2,10 +2,12 @@
 
 case "$1" in
   run)
+    export RETHINKDB=test FIXTURE=./fixtures.json
     exec node $(pwd)/bin/runner.js
     ;;
   del)
-     exec node $(pwd)/bin/delete.js
+    export RETHINKDB=test TABLES=bikes,groups,people
+    exec node $(pwd)/bin/delete.js
     ;;
   *)
     echo "Usage: fixture [run|del]"
