@@ -27,3 +27,14 @@ prep.connect()
 ```
 npm test
 ```
+
+### Command line usage:
+```
+export RETHINKDB=test
+export FIXTURE=./fixtures.json
+node ./bin/runner.js 
+
+export RETHINKDB=test
+export TABLES='table1,table2,table3'
+node ./bin/delete.js
+```
