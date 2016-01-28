@@ -23,7 +23,8 @@ prep.connect()
 });
 ```
 
-### To test:
+### To test: 
+make sure you have an instance of rethinkdb running somewhere
 ```
 npm test
 ```
