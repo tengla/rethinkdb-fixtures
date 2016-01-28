@@ -6,30 +6,46 @@ const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
 const lab = exports.lab = Lab.script();
-
 const dbOptions = {
     db: process.env.RETHINKDB || 'test'
 };
+let prep;
 
 lab.experiment('Prepare', () => {
 
-    lab.test('should connect', (done) => {
+    lab.before( (done) => {
 
-        const prep = Prepare(dbOptions);
+        prep = Prepare(dbOptions);
+        prep.connect()
+        .then( () => {
+
+            done();
+        });
+    });
+
+    lab.after( (done) => {
+
+        prep.connect()
+        .then(prep.deleteTable.bind(prep, 'people'))
+        .then( () => {
+
+            prep.close();
+            done();
+        });
+    });
+
+    lab.test('should connect', (done) => {
 
         prep.connect()
         .then( (message) => {
 
             expect(message).to.be.string();
-            expect(message).to.match(/^Connected to localhost:28015\//);
+            expect(message).to.match(/^Already connected to localhost:28015\//);
         })
-        .then(prep.close.bind(prep))
         .then(done);
     });
 
     lab.test('should create table \'people\'', (done) => {
-
-        const prep = Prepare(dbOptions);
 
         prep.connect()
         .then( () => {/*shut up*/},console.error)
@@ -52,14 +68,80 @@ lab.experiment('Prepare', () => {
         });
     });
 
-    lab.test('fillTable', (done) => {
+    lab.test('should fill table \'people\'', (done) => {
 
-        const prep = Prepare(dbOptions);
-        prep.fillTable = function () {
-
-            return 0;
+        const fixture = {
+            people: {
+                name: 'John Doe',
+                age: 23
+            }
         };
-        expect(prep.fillTable()).to.be.equal(0);
-        done();
+
+        prep.connect()
+        .then(() => {}, console.error)
+        .then(prep.fill.bind(prep, fixture))
+        .then( (promises) => {
+
+            return Promise.all(promises);
+        })
+        .then( (result) => {
+
+            expect(result[0].people[0].name).to.be.equal('John Doe');
+            done();
+        });
+    });
+
+    lab.test('should delete table', (done) => {
+
+        const fixture = {
+            people: {
+                name: 'Bill Delete',
+                age: 201
+            }
+        };
+
+        prep.connect()
+        .then(() => {},console.error)
+        .then(prep.fill.bind(prep,fixture))
+        .then( (promises) => {
+
+            return Promise.all(promises);
+        })
+        .then( () => {})
+        .then( () => {
+
+            prep.deleteTableWithFilter('people', { name: 'Bill Delete' }).then( (result) => {
+
+                expect(result.changes[0].old_val.name).to.be.equal('Bill Delete');
+                done();
+            });
+        });
+    });
+
+    lab.test('should drop table', (done) => {
+
+        prep.connect()
+        .then( () => {}, console.error)
+        .then(prep.createTableUnlessExist.bind(prep, 'temptable'))
+        .then(prep.dropTables.bind(prep,['temptable']))
+        .then( (promises) => {
+
+            return Promise.all(promises);
+        })
+        .then( (result) => {
+
+            expect(result[0].config_changes[0].old_val.name).to.be.equal('temptable');
+            done();
+        });
+    });
+
+    lab.test('should close connection', (done) => {
+
+        prep.close()
+        .then( (a) => {
+
+            expect(a).to.be.equal(true);
+            done();
+        });
     });
 });

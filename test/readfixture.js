@@ -8,7 +8,7 @@ const expect = Code.expect;
 const lab = exports.lab = Lab.script();
 const filename = '/tmp/readfixturemock.json';
 
-lab.experiment('readfixture', () => {
+lab.experiment('Readfixture', () => {
 
     lab.before( (done) => {
 
@@ -29,11 +29,10 @@ lab.experiment('readfixture', () => {
     lab.test('it fails', (done) => {
 
         Readfixture('/tmp/totallybogus.json')
-        .then( () => {}, 
-            (err) => {
+        .then( () => {}, (err) => {
 
             expect(err.code).to.be.equal('ENOENT');
             done();
-        })
-    })
+        });
+    });
 });
