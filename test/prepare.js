@@ -34,7 +34,7 @@ lab.experiment('Prepare', () => {
         });
     });
 
-    lab.test('should connect', (done) => {
+    lab.test('it connects', (done) => {
 
         prep.connect()
         .then( (message) => {
@@ -45,7 +45,7 @@ lab.experiment('Prepare', () => {
         .then(done);
     });
 
-    lab.test('should create table \'people\'', (done) => {
+    lab.test('it creates table \'people\'', (done) => {
 
         prep.connect()
         .then( () => {/*shut up*/},console.error)
@@ -64,7 +64,7 @@ lab.experiment('Prepare', () => {
         });
     });
 
-    lab.test('should fill table \'people\'', (done) => {
+    lab.test('it fills table \'people\'', (done) => {
 
         const fixture = {
             people: {
@@ -83,7 +83,7 @@ lab.experiment('Prepare', () => {
         });
     });
 
-    lab.test('should delete table', (done) => {
+    lab.test('it deletes table \'people\'', (done) => {
 
         const fixture = {
             people: {
@@ -106,7 +106,7 @@ lab.experiment('Prepare', () => {
         });
     });
 
-    lab.test('should drop table', (done) => {
+    lab.test('it drops table \'temptable\'', (done) => {
 
         prep.connect()
         .then( () => {}, console.error)
@@ -119,7 +119,7 @@ lab.experiment('Prepare', () => {
         });
     });
 
-    lab.test('should close connection', (done) => {
+    lab.test('it closes connection', (done) => {
 
         prep.close()
         .then( (a) => {
