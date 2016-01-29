@@ -33,9 +33,9 @@ const options = {
     }
 };
 
-Insert(options).then( (result) => {
+Insert(options).then( (fixture) => {
 
-    console.log(result.items);
+    console.log(fixture.items, fixture.weirdos);
 }, console.error);
 ```
 
