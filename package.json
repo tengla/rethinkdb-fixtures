@@ -7,8 +7,12 @@
     "test": "lab -v -m 5000 -c -L",
     "linter": "lab -L",
     "coverage": "lab -c -v",
-    "start": "node ./bin/runner.js",
+    "start": "node ./bin/insert.js",
     "delete": "node ./bin/delete.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/athlite/rethinkdb-fixtures"
   },
   "keywords": [
     "Rethinkdb",
