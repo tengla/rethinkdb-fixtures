@@ -2,25 +2,40 @@
 
 Easily load fixtures into Rethinkdb. Useful for testing.
 
-### Usage:
+### Insert
 ```
-const Prepare = require('rethinkdb-fixtures').Prepare;
-const prep = Prepare({ db: 'test' });
-const fixture = {
-    people: {
-        name: 'John Doe',
-        age: 23
+const Insert = require('rethinkdb-fixtures').Insert;
+
+const options = {
+    db: {
+        db: 'test'
+    },
+    fixture: {
+        items: [
+            {
+                name: 'Item 1'
+            },
+            {
+                name: 'Item 2'
+            }
+        ]
     }
 };
 
-prep.connect()
-.then(console.log, console.error)
-.then(prep.fill.bind(prep, fixture)) // returns resolved promises
-.then( (result) => {
+Insert(options).then( (result) => {
 
-    console.log(result[0].people); // newly created people
-    prep.close();
-});
+    console.log(result.items);
+}, console.error);
+```
+
+### Delete
+```
+const Delete = require('rethinkdb-fixtures').Delete;
+Delete(options.db, ['items', 'weirdos']).then( (result) => {
+
+    console.log(result); // standard rethinkdb change objects
+},console.error);
+
 ```
 
 ### To test: 
