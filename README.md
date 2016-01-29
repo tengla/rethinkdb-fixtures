@@ -19,10 +19,7 @@ const options = {
                 name: 'Wrench'
             }
         ],
-        weirdos: [
-            {
-                name: 'Donald Trump'
-            },
+        people: [
             {
                 name: 'Wild Man Fischer'
             },
