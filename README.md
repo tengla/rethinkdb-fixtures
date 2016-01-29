@@ -13,10 +13,21 @@ const options = {
     fixture: {
         items: [
             {
-                name: 'Item 1'
+                name: 'Bike'
             },
             {
-                name: 'Item 2'
+                name: 'Wrench'
+            }
+        ],
+        weirdos: [
+            {
+                name: 'Donald Trump'
+            },
+            {
+                name: 'Wild Man Fischer'
+            },
+            {
+                name: 'Charles Ponzi'
             }
         ]
     }
