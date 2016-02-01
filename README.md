@@ -32,7 +32,7 @@ const fixture = {
 
 Insert(options,fixture).then( (createdObjects) => {
 
-    console.log(createdObjects.items, createdObjects.weirdos);
+    console.log(createdObjects.items, createdObjects.people);
 }, console.error);
 ```
 
