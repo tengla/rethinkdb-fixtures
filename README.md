@@ -7,10 +7,10 @@ Easily load fixtures into Rethinkdb. Useful for testing.
 const Insert = require('rethinkdb-fixtures').Insert;
 
 const options = {
-    db: {
-        db: 'test'
-    },
-    fixture: {
+    db: 'test'
+};
+
+const fixture = {
         items: [
             {
                 name: 'Bike'
@@ -30,16 +30,16 @@ const options = {
     }
 };
 
-Insert(options).then( (fixture) => {
+Insert(options,fixture).then( (createdObjects) => {
 
-    console.log(fixture.items, fixture.weirdos);
+    console.log(createdObjects.items, createdObjects.weirdos);
 }, console.error);
 ```
 
 ### Delete
 ```
 const Delete = require('rethinkdb-fixtures').Delete;
-Delete(options.db, ['items', 'weirdos']).then( (result) => {
+Delete(options, ['items', 'people']).then( (result) => {
 
     console.log(result); // standard rethinkdb change objects
 },console.error);
