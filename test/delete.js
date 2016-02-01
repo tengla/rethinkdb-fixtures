@@ -9,35 +9,34 @@ const expect = Code.expect;
 const lab = exports.lab = Lab.script();
 
 const options = {
-    db: {
-        db: 'test'
-    },
-    fixture: {
-        items: [
-            {
-                name: 'Item 1'
-            },
-            {
-                name: 'Item 2'
-            }
-        ],
-        weirdos: [
-            {
-                name: 'Weirdo 1'
-            },
-            {
-                name: 'Weirdo 2'
-            }
-        ]
-    },
+    db: 'test',
     verbose: 1
+};
+
+const fixture = {
+    items: [
+        {
+            name: 'Item 1'
+        },
+        {
+            name: 'Item 2'
+        }
+    ],
+    weirdos: [
+        {
+            name: 'Weirdo 1'
+        },
+        {
+            name: 'Weirdo 2'
+        }
+    ]
 };
 
 lab.experiment('Delete', () => {
 
     lab.before( (done) => {
 
-        Insert(options).then( (result) => {
+        Insert(options,fixture).then( (result) => {
 
             done();
         }, done);
@@ -45,7 +44,7 @@ lab.experiment('Delete', () => {
 
     lab.test('it deletes', (done) => {
 
-        Delete(options.db, ['items', 'weirdos'])
+        Delete(options, ['items', 'weirdos'])
         .then( (result) => {
 
             expect(result.length).to.be.equal(2);
