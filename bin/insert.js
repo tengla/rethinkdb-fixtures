@@ -1,46 +1,33 @@
 'use strict';
 
-const _ = require('lodash');
 Promise = require('bluebird');
 
 const DB = process.env.RETHINKDB;
 const FIXTURE = process.env.FIXTURE;
 
 if (!DB) {
-    throw new Error('environment variable $RETHINKDB must be set');
+    const message = 'environment variable $RETHINKDB must be set';
+    console.error(message);
+    process.exit(1);
 }
 
 if (!FIXTURE) {
-    throw new Error('environment variable $FIXTURE must be set. This must point to a json file.');
+    const message = 'environment variable $FIXTURE must be set. This must point to a json file.';
+    console.error(message);
+    process.exit(1);
 }
 
 const Readfixture = require('../index').Readfixture;
-const prep = require('../index')
-    .Prepare({ db: DB });
+const Insert = require('../index').Insert;
 
-prep.connect()
-    .then( console.log, console.error)
-    .then(Readfixture.bind(null, FIXTURE))
-    .then( (fixtures) => {
+const options = {
+    db: DB
+};
 
-        return prep.createTablesUnlessExist(Object.keys(fixtures));
-    })
-    .then(Readfixture.bind(null, FIXTURE))
-    .then( (fixtures) => {
+Readfixture(FIXTURE).then( (fixture) => {
 
-        return prep.fill(fixtures);
-    })
-    .then( (results) => {
+    Insert(options,fixture).then( (createdObjects) => {
 
-        const unpack = {};
-        _.each(results, (result) => {
-
-            const key = Object.keys(result)[0];
-            unpack[key] = result[key];
-        });
-        return Promise.resolve(unpack);
-    }).then( (res) => {
-
-        console.log(JSON.stringify(res,null,4));
-        return prep.close();
+        console.log(createdObjects);
     });
+});
