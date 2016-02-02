@@ -1,6 +1,6 @@
 {
   "name": "rethinkdb-fixtures",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Easily load fixtures into Rethinkdb. Useful for testing.",
   "main": "index.js",
   "scripts": {
