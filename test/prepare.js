@@ -2,7 +2,7 @@
 
 const Promise = require('bluebird');
 const Prepare = require('../index').Prepare;
-const _ = require('lodash');
+const Includes = require('lodash/includes');
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
@@ -58,7 +58,7 @@ lab.experiment('Prepare', () => {
         .then(prep.tableList.bind(prep))
         .then( (list) => {
 
-            expect(_.includes(list, 'people')).to.be.equal(true);
+            expect(Includes(list,'people')).to.be.equal(true);
             expect(list).to.be.array();
             done();
         });
