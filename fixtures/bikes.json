@@ -1,0 +1,16 @@
+{
+    "bikes":[
+        {
+            "model":"R100",
+            "name":"BMW"
+        },
+        {
+            "model":"XJR1300",
+            "name":"YAMAHA"
+        },
+        {
+            "model":"Panigale 1199s",
+            "name":"DUCATI"
+        }
+    ]
+}
