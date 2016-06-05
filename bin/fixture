@@ -14,6 +14,3 @@ case "$1" in
     echo "Usage: fixture [run|del]"
     ;;
 esac
-
-
-#
