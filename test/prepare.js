@@ -7,9 +7,12 @@ const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
 const lab = exports.lab = Lab.script();
+
 const dbOptions = {
+    host: process.env.RETHINKDB_PORT_8080_TCP_ADDR,
     db: process.env.RETHINKDB || 'test'
 };
+
 let prep;
 
 lab.experiment('Prepare', () => {
@@ -41,7 +44,7 @@ lab.experiment('Prepare', () => {
         .then( (message) => {
 
             expect(message).to.be.string();
-            expect(message).to.match(/^Already connected to localhost:28015\//);
+            expect(message).to.match(/^Already connected to .*:28015\//);
         })
         .then(done);
     });
