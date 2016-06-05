@@ -9,7 +9,8 @@ const expect = Code.expect;
 const lab = exports.lab = Lab.script();
 
 const options = {
-    db: 'test',
+    host: process.env.RETHINKDB_PORT_8080_TCP_ADDR,
+    db: process.env.RETHINKDB || 'test',
     verbose: 1
 };
 
