@@ -1,6 +1,7 @@
 'use strict';
 
 const Insert = require('../index').Insert;
+const Delete = require('../index').Delete;
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
@@ -8,7 +9,8 @@ const expect = Code.expect;
 const lab = exports.lab = Lab.script();
 
 const options = {
-    db: 'test'
+    host: process.env.RETHINKDB_PORT_8080_TCP_ADDR,
+    db: process.env.RETHINKDB || 'test'
 };
 
 const fixture = {
@@ -28,6 +30,12 @@ const fixture = {
 };
 
 lab.experiment('Insert', () => {
+
+    lab.after( (done) => {
+
+        Delete(options, ['items','artists']);
+        done();
+    });
 
     lab.test('it inserts', (done) => {
 
