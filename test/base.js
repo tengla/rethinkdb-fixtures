@@ -1,7 +1,7 @@
 'use strict';
 
-const Promise = require('bluebird');
-const Prepare = require('../index').Prepare;
+Promise = require('bluebird');
+const Base = require('../index').Base;
 const Includes = require('lodash/includes');
 const Lab = require('lab');
 const Code = require('code');
@@ -13,14 +13,14 @@ const dbOptions = {
     db: process.env.RETHINKDB || 'test'
 };
 
-let prep;
+let base;
 
-lab.experiment('Prepare', () => {
+lab.experiment('Base', () => {
 
     lab.before( (done) => {
 
-        prep = Prepare(dbOptions);
-        prep.connect()
+        base = new Base(dbOptions);
+        base.connect()
         .then( () => {
 
             done();
@@ -29,18 +29,18 @@ lab.experiment('Prepare', () => {
 
     lab.after( (done) => {
 
-        prep.connect()
-        .then(prep.deleteTable.bind(prep, 'people'))
+        base.connect()
+        .then(base.deleteTable.bind(base, 'people'))
         .then( () => {
 
-            prep.close();
+            base.close();
             done();
         });
     });
 
     lab.test('it connects', (done) => {
 
-        prep.connect()
+        base.connect()
         .then( (message) => {
 
             expect(message).to.be.string();
@@ -51,14 +51,14 @@ lab.experiment('Prepare', () => {
 
     lab.test('it creates table \'people\'', (done) => {
 
-        prep.connect()
+        base.connect()
         .then( () => {/*shut up*/},console.error)
         .then(Promise.resolve.bind(null, ['people']))
         .then( (tables) => {
 
-            return prep.createTablesUnlessExist(tables);
+            return base.createTablesUnlessExist(tables);
         })
-        .then(prep.tableList.bind(prep))
+        .then(base.tableList.bind(base))
         .then( (list) => {
 
             expect(Includes(list,'people')).to.be.equal(true);
@@ -76,9 +76,9 @@ lab.experiment('Prepare', () => {
             }
         };
 
-        prep.connect()
+        base.connect()
         .then(() => {}, console.error)
-        .then(prep.fill.bind(prep, fixture))
+        .then(base.fill.bind(base, fixture))
         .then( (result) => {
 
             expect(result[0].people[0].name).to.be.equal('John Doe');
@@ -95,13 +95,13 @@ lab.experiment('Prepare', () => {
             }
         };
 
-        prep.connect()
+        base.connect()
         .then(() => {},console.error)
-        .then(prep.fill.bind(prep,fixture))
+        .then(base.fill.bind(base,fixture))
         .then( () => {})
         .then( () => {
 
-            prep.deleteTableWithFilter('people', { name: 'Bill Delete' }).then( (result) => {
+            base.deleteTableWithFilter('people', { name: 'Bill Delete' }).then( (result) => {
 
                 expect(result.changes[0].old_val.name).to.be.equal('Bill Delete');
                 done();
@@ -111,10 +111,10 @@ lab.experiment('Prepare', () => {
 
     lab.test('it drops table \'temptable\'', (done) => {
 
-        prep.connect()
+        base.connect()
         .then( () => {}, console.error)
-        .then(prep.createTableUnlessExist.bind(prep, 'temptable'))
-        .then(prep.dropTables.bind(prep,['temptable']))
+        .then(base.createTableUnlessExist.bind(base, 'temptable'))
+        .then(base.dropTables.bind(base,['temptable']))
         .then( (result) => {
 
             expect(result[0].config_changes[0].old_val.name).to.be.equal('temptable');
@@ -124,7 +124,7 @@ lab.experiment('Prepare', () => {
 
     lab.test('it closes connection', (done) => {
 
-        prep.close()
+        base.close()
         .then( (a) => {
 
             expect(a).to.be.equal(true);
