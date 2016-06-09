@@ -15,7 +15,7 @@ if (!process.env.TABLES) {
 const tables = process.env.TABLES.split(',');
 
 const prep = require('../index')
-    .Prepare({ db: DB });
+    .Base({ db: DB });
 
 prep.connect()
     .then(console.log,console.error)
