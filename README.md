@@ -38,6 +38,11 @@ Insert(options,fixture).then( (createdObjects) => {
 
 ### Delete
 ```
+const options = {
+    db: 'test',
+    clear: true // This will make sure tables are cleared before inserting.
+};
+
 const Delete = require('rethinkdb-fixtures').Delete;
 Delete(options, ['items', 'people']).then( (result) => {
 
