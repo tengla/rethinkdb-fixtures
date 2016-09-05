@@ -3,7 +3,7 @@
 # Assuming you have a container that runs rethinkdb named 'rethinkdb'
 # To run: docker run -it --rm --link rethinkdb rethinkdb-fixtures
 
-FROM node:5
+FROM node:4
 
 RUN mkdir /src
 
