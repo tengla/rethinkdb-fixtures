@@ -7,7 +7,8 @@ Easily load fixtures into Rethinkdb. Useful for testing.
 const Insert = require('rethinkdb-fixtures').Insert;
 
 const options = {
-    db: 'test'
+    db: 'test',
+    clear: true // This will make sure tables are cleared before inserting.
 };
 
 const fixture = {
@@ -39,8 +40,7 @@ Insert(options,fixture).then( (createdObjects) => {
 ### Delete
 ```
 const options = {
-    db: 'test',
-    clear: true // This will make sure tables are cleared before inserting.
+    db: 'test'
 };
 
 const Delete = require('rethinkdb-fixtures').Delete;
