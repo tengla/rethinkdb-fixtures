@@ -60,13 +60,13 @@ npm test
 ### Command line usage
 
 #### To insert:
-```javascript
+```sh
 export RETHINKDB=test
 export FIXTURE=./fixtures.json
 node ./bin/insert.js
 ```
 #### To delete tables
-```javascript
+```sh
 export RETHINKDB=test
 export TABLES='table1,table2,table3'
 node ./bin/delete.js
