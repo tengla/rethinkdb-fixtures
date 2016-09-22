@@ -3,7 +3,7 @@
 Easily load fixtures into Rethinkdb. Useful for testing.
 
 ### Insert
-```
+```javascript
 const Insert = require('rethinkdb-fixtures').Insert;
 
 const options = {
@@ -38,7 +38,7 @@ Insert(options,fixture).then( (createdObjects) => {
 ```
 
 ### Delete
-```
+```javascript
 const options = {
     db: 'test'
 };
@@ -60,13 +60,13 @@ npm test
 ### Command line usage
 
 #### To insert:
-```
+```javascript
 export RETHINKDB=test
 export FIXTURE=./fixtures.json
 node ./bin/insert.js
 ```
 #### To delete tables
-```
+```javascript
 export RETHINKDB=test
 export TABLES='table1,table2,table3'
 node ./bin/delete.js
