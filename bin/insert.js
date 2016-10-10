@@ -4,6 +4,8 @@ Promise = require('bluebird');
 
 const DB = process.env.RETHINKDB;
 const FIXTURE = process.env.FIXTURE;
+const RDBUSER = process.env.RDBUSER;
+const RDBPASSWORD = process.env.RDBPASSWORD;
 
 if (!DB) {
     const message = 'environment variable $RETHINKDB must be set';
@@ -17,16 +19,20 @@ if (!FIXTURE) {
     process.exit(1);
 }
 
-const Readfixture = require('../index').Readfixture;
-const Insert = require('../index').Insert;
+const Readfixture = require('../readfixture');
+
 
 const options = {
-    db: DB
+    db: DB,
+    user: RDBUSER,
+    password: RDBPASSWORD
 };
+
+const Insert = require('../index')(options).Insert;
 
 Readfixture(FIXTURE).then( (fixture) => {
 
-    Insert(options,fixture).then( (createdObjects) => {
+    Insert(fixture).then( (createdObjects) => {
 
         console.log(createdObjects);
     });

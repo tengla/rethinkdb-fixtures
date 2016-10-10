@@ -2,7 +2,10 @@
 
 const _ = require('lodash');
 Promise = require('bluebird');
+
 const DB = process.env.RETHINKDB;
+const USER = process.env.RDBUSER;
+const PASSWORD = process.env.RDBPASSWORD;
 
 if (!process.env.TABLES) {
 
@@ -14,8 +17,8 @@ if (!process.env.TABLES) {
 
 const tables = process.env.TABLES.split(',');
 
-const prep = require('../index')
-    .Base({ db: DB });
+const Base = require('../base');
+const prep = new Base({ db: DB, user: USER, password: PASSWORD });
 
 prep.connect()
     .then(console.log,console.error)
