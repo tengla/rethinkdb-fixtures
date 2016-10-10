@@ -24,7 +24,12 @@ const _delete = function (tables) {
     });
 };
 
-module.exports = function (options,tables) {
+module.exports = function (options,base) {
 
-    return _delete.call(new Base(options),tables);
+    base = base || new Base(options);
+
+    return function (tables) {
+
+        return _delete.call(base,tables);
+    };
 };

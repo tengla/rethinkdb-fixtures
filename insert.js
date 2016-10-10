@@ -53,20 +53,19 @@ const insert = function (fixture) {
                 const key = Object.keys(object)[0];
                 pack[key] = object[key];
             });
-
-            return this.close().then( () => {
-
-                return resolve(pack);
-            });
+            return resolve(pack);
         },reject);
     });
 };
 
-module.exports = function (options,fixture) {
+module.exports = function (options,base) {
 
-    const base = new Base(options);
-    return clear.call(base, Object.keys(fixture)).then( () => {
+    base = base || new Base(options);
 
-        return insert.call(base,fixture);
-    });
+    return function (fixture) {
+        return clear.call(base, Object.keys(fixture)).then( () => {
+
+            return insert.call(base,fixture);
+        });
+    };
 };
