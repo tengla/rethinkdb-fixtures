@@ -4,12 +4,13 @@ Easily load fixtures into Rethinkdb. Useful for testing.
 
 ### Insert
 ```javascript
-const Insert = require('rethinkdb-fixtures').Insert;
 
 const options = {
     db: 'test',
     clear: true // This will make sure tables are cleared before inserting.
 };
+const rdbFix = require('rethinkdb-fixtures')(options);
+const Insert = rdbFix.Insert;
 
 const fixture = {
         items: [
@@ -31,7 +32,7 @@ const fixture = {
     }
 };
 
-Insert(options,fixture).then( (createdObjects) => {
+Insert(fixture).then( (createdObjects) => {
 
     console.log(createdObjects.items, createdObjects.people);
 }, console.error);
@@ -43,8 +44,8 @@ const options = {
     db: 'test'
 };
 
-const Delete = require('rethinkdb-fixtures').Delete;
-Delete(options, ['items', 'people']).then( (result) => {
+const Delete = rdbFix.Delete;
+Delete(['items', 'people']).then( (result) => {
 
     console.log(result); // standard rethinkdb change objects
 },console.error);
