@@ -1,7 +1,7 @@
 'use strict';
 
 const Fs = require('fs');
-const Readfixture = require('../lib/readfixture');
+const Readfixture = require('../readfixture');
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;

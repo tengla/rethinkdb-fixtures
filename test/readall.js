@@ -1,6 +1,6 @@
 'use strict';
 
-const Readall = require('../index').all;
+const Readall = require('../readall');
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;

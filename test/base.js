@@ -1,7 +1,7 @@
 'use strict';
 
 Promise = require('bluebird');
-const Base = require('../index').Base;
+const Base = require('../base');
 const Includes = require('lodash/includes');
 const Lab = require('lab');
 const Code = require('code');

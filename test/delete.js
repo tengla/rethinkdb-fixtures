@@ -1,7 +1,6 @@
 'use strict';
 
-const Delete = require('../index').Delete;
-const Insert = require('../index').Insert;
+
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
@@ -14,6 +13,10 @@ const options = {
     user: 'test',
     verbose: 1
 };
+
+const lib = require('../index')(options);
+const Insert = lib.Insert;
+const Delete = lib.Delete;
 
 const fixture = {
     items: [
@@ -38,7 +41,7 @@ lab.experiment('Delete', () => {
 
     lab.before( (done) => {
 
-        Insert(options,fixture).then( (result) => {
+        Insert(fixture).then( (result) => {
 
             done();
         }, done);
@@ -46,7 +49,7 @@ lab.experiment('Delete', () => {
 
     lab.test('it deletes', (done) => {
 
-        Delete(options, ['items', 'weirdos'])
+        Delete(['items', 'weirdos'])
         .then( (result) => {
 
             expect(result.length).to.be.equal(2);

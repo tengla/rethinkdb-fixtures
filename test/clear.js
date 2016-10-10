@@ -1,7 +1,7 @@
 'use strict';
 
 const R = require('rethinkdb');
-const Insert = require('../index').Insert;
+
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
@@ -14,6 +14,8 @@ const options = {
     verbose: true,
     clear: true
 };
+
+const Insert = require('../index')(options).Insert;
 
 const fixture = {
     items: [
@@ -38,14 +40,14 @@ lab.experiment('Clear', () => {
 
     lab.test('it clears table before inserting', (done) => {
 
-        Insert(options, fixture)
+        Insert(fixture)
         .then( (created) => {
 
             return created;
         })
         .then( () => {
 
-            return Insert(options, fixture);
+            return Insert(fixture);
         })
         .then( () => {
 

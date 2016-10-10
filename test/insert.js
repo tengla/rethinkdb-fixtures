@@ -1,7 +1,6 @@
 'use strict';
 
-const Insert = require('../index').Insert;
-const Delete = require('../index').Delete;
+
 const Lab = require('lab');
 const Code = require('code');
 const expect = Code.expect;
@@ -13,6 +12,11 @@ const options = {
     db: process.env.RETHINKDB || 'test',
     user: 'test'
 };
+
+const lib = require('../index')(options);
+
+const Insert = lib.Insert;
+const Delete = lib.Delete;
 
 const fixture = {
     items: [
@@ -34,13 +38,13 @@ lab.experiment('Insert', () => {
 
     lab.after( (done) => {
 
-        Delete(options, ['items','artists']);
+        Delete(['items','artists']);
         done();
     });
 
     lab.test('it inserts', (done) => {
 
-        Insert(options, fixture).then( (objects) => {
+        Insert(fixture).then( (objects) => {
 
             const idx = objects.items.findIndex( (item) => {
 
@@ -49,6 +53,6 @@ lab.experiment('Insert', () => {
             expect(objects.items[idx].name).to.be.equal(fixture.items[0].name);
             expect(objects.artists[0].name).to.be.equal(fixture.artists[0].name);
             done();
-        }, console.error);
+        }).catch(done);
     });
 });
