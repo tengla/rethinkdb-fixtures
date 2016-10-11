@@ -4,7 +4,7 @@
   "description": "Easily load fixtures into Rethinkdb. Useful for testing.",
   "main": "index.js",
   "scripts": {
-    "test": "lab -v -m 5000 -c -L",
+    "test": "lab -v -m 5000",
     "linter": "lab -L",
     "coverage": "lab -c -v",
     "start": "node ./bin/insert.js",
