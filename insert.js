@@ -63,6 +63,7 @@ module.exports = function (options,base) {
     base = base || new Base(options);
 
     return function (fixture) {
+
         return clear.call(base, Object.keys(fixture)).then( () => {
 
             return insert.call(base,fixture);
