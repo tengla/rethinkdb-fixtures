@@ -54,7 +54,8 @@ Base.prototype.connect = function () {
 
     return new Promise( (resolve,reject) => {
 
-        return R.connect(this.options).then( (conn) => {
+        const options = Object.assign({}, this.options);
+        return R.connect(options).then( (conn) => {
 
             this.connection = conn;
             const message = ['Connected to ',conn.host,':',conn.port,'/',conn.db,'\n'].join('');
@@ -173,5 +174,7 @@ Base.prototype.tableList = function () {
 
     return R.tableList().run(this.connection);
 };
+
+Base.prototype.$r = R;
 
 module.exports = Base;
