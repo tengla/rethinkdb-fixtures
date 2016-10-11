@@ -50,6 +50,11 @@ Delete(['items', 'people']).then( (result) => {
     console.log(result); // standard rethinkdb change objects
 },console.error);
 
+// close
+rdbFix.base.close().then( () => {
+
+   console.log(`I've closed the connection`);
+});
 ```
 
 ### To test: 
