@@ -40,18 +40,17 @@ Insert(fixture).then( (createdObjects) => {
 
 ### Delete
 ```javascript
-const options = {
-    db: 'test'
-};
 
 const Delete = rdbFix.Delete;
 Delete(['items', 'people']).then( (result) => {
 
     console.log(result); // standard rethinkdb change objects
 },console.error);
+```
 
-// close
-rdbFix.base.close().then( () => {
+Closing connection
+```
+rdbFix.base.close().then( function () {
 
    console.log(`I've closed the connection`);
 });
