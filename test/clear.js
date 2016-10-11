@@ -10,7 +10,6 @@ const lab = exports.lab = Lab.script();
 const options = {
     host: process.env.RETHINKDB_INSTANCE_PORT_8080_TCP_ADDR,
     db: process.env.RETHINKDB || 'test',
-    user: 'test',
     verbose: true,
     clear: true
 };
